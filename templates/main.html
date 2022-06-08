@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Messageboard</title>
+</head>
+<body>
+	<main>
+		{% include 'components/nav.html' %}
+		<div id="content-wrapper">
+			{% block content %}
+			{% endblock %}
+		</div>
+		{% include 'components/footer.html' %}
+	</main>
+</body>
+</html>
