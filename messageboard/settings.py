@@ -12,6 +12,10 @@ SECRET_KEY = \
     os.environ['DJANGO_SECRET_KEY'] if IS_PRODUCTION \
     else 'django-insecure-f9g40x9(tcwuo%e!3pu*$17=wlpmxlwe^d#z*5^#l^&6q$)$1i'
 
+# URL to redirect to after login
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 # Disable debug mode in production
 DEBUG = not IS_PRODUCTION
 
