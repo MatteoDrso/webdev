@@ -1,13 +1,23 @@
+{% load compile_static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Messageboard</title>
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="{% static "styles/main.scss"|compile %}">
 </head>
 <body>
 	<main>
-		{% include 'components/nav.html' %}
 		<div id="content-wrapper">
+			{% include 'components/nav.html' %}
+			{% if messages %}
+			<ul class="flash-messages">
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
 			{% block content %}
 			{% endblock %}
 		</div>

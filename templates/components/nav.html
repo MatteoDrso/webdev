@@ -1,12 +1,16 @@
 <nav>
 	<ul>
-		<li><a href="/">Home</a></li>
+		<li><a class="navlink" href="/">Home</a></li>
+		<li><a class="navlink" href="/">Somewhere</a></li>
+		<li><a class="navlink" href="/">Else</a></li>
+	</ul>
+	<ul class="nav-user-actions">
 		{% if user.is_authenticated %}
-		<li><a href="/user/{{ user.get_username }}">{{ user.get_username }}</a></li>
-		<li><a href="/logout">Logout</a></li>
+		<li><a class="navlink" href="/user/{{ user.get_username }}">{{ user.get_username }}</a></li>
+		<li><a class="navlink" href="/logout">Logout</a></li>
 		{% else %}
-		<li><a href="/login/">Login</a></li>
-		<li><a href="/register/">Register</a></li>
+		<li><a class="navlink" href="/login/">Login</a></li>
+		<li><a class="navlink" href="/register/">Register</a></li>
 		{% endif %}
 	</ul>
 </nav>

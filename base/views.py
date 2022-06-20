@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from base.forms import RegisterForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib import auth
 
@@ -32,5 +33,29 @@ def register(request: HttpRequest) -> HttpResponse:
     return render(request, 'registration/register.html', {'form': form})
 
 
+def login(request: HttpRequest) -> HttpResponse:
+    status = 200
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        print(form.is_valid(), form.errors)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = auth.authenticate(username=username, password=password)
+            if user is not None:
+                auth.login(request, user)
+                messages.info(
+                    request=request,
+                    message=f'Logged in as {username}')
+                return redirect('home')
+        messages.error(request=request, message='Invalid username or password')
+        status = 400
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html',
+                  {'form': form}, status=status)
+
+
 def new_post(request: HttpRequest) -> HttpResponse:
-    return render(request, 'create_post.html') #finish this and the view in ../templates/create_post.html
+    # finish this and the view in ../templates/create_post.html
+    return render(request, 'create_post.html')
