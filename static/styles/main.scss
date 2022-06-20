@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&family=Inter:wght@200;300;400;500&family=Montserrat:wght@300;400;500;700&display=swap');
+@import "nav.scss";
+@import "form.scss";
+@import "footer.scss";
+@import "theme.scss";
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	box-sizing: border-box;
+	font-family: Montserrat;
+}
+
+body {
+	background-color: $mantle;
+	color: $text;
+}
+
+::selection {
+	color: $base;
+	background: $green;
+}
+
+#content-wrapper {
+	max-width: $max-content-width;
+	width: $max-content-width;
+	margin: 0 auto;
+}
+

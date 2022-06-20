@@ -1,0 +1,47 @@
+@import "theme.scss";
+
+.form {
+	background-color: $base;
+	border-radius: $border-radius;
+	padding: 1.5rem;
+	display: grid;
+	grid-template-areas: "labels fields" "submit";
+
+	$item-padding: .6rem;
+
+	input, label, h1 {
+		display: block;
+		padding: $item-padding;
+	}
+
+	h1 {
+		margin: 0;
+		padding: $item-padding;
+		padding-top: 0;
+	}
+
+	input {
+		outline: none;
+		border: none;
+		border-radius: $border-radius;
+
+		font-size: 1rem;
+		color: $text;
+		background-color: $surface0;
+
+		&:not(:last-child) {
+			margin-bottom: .3rem;
+		}
+		&:active, &:focus {
+			outline: 1px solid $green;
+		}
+	}
+	input[type="submit"] {
+		margin-top: 1.6rem;
+		padding: .5rem;
+		background-color: $green;
+		color: $base;
+		cursor: pointer;
+	}
+}
+

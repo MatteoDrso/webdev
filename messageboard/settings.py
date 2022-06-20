@@ -12,8 +12,7 @@ SECRET_KEY = \
     os.environ['DJANGO_SECRET_KEY'] if IS_PRODUCTION \
     else 'django-insecure-f9g40x9(tcwuo%e!3pu*$17=wlpmxlwe^d#z*5^#l^&6q$)$1i'
 
-# URL to redirect to after login
-LOGIN_REDIRECT_URL = 'home'
+# URL to redirect to after logout
 LOGOUT_REDIRECT_URL = 'home'
 
 # Disable debug mode in production
@@ -21,9 +20,19 @@ DEBUG = not IS_PRODUCTION
 
 ALLOWED_HOSTS = []
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'static_precompiler.finders.StaticPrecompilerFinder',
+)
+
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'static_precompiler',
     'base.apps.BaseConfig',
 ]
 
@@ -108,11 +118,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

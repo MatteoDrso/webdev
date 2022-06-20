@@ -1,0 +1,22 @@
+@import "theme.scss";
+
+nav {
+	margin: 0 auto;
+	width: max-content-width-relative;
+	max-width: $max-content-width;
+	display: flex;
+	justify-content: space-between;
+	ul {
+		padding: 0;
+		margin: 1rem 0;
+		list-style: none;
+		display: flex;
+		>:not(:last-child) {
+			margin-right: 1rem;
+		}
+	}
+	.navlink {
+			text-decoration: none;
+			color: $text;
+		}
+}

@@ -1,9 +1,14 @@
 {% extends 'main.html' %}
 
+{% block title %}
+Login | Messageboard
+{% endblock %}
+
 {% block content %}
-<form method="post">
+<form class="form" method="post">
+	<h1>Login</h1>
 	{% csrf_token %}
-	{{ form }}
-	<input type="submit" value="Submit">
+	{% include 'components/form.html' with form=form %}
+	<input type="submit" value="Login">
 </form>
 {% endblock %}
