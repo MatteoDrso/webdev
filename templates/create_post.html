@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>New post!</title>
+</head>
+<body>
+	<main>
+		{% include 'components/nav.html' %}
+		{% if user.is_authenticated %}
+		<p>now create your post</p>
+		{% else %}
+		<p>please <a href="/login/">login</a> first</p>
+		{% endif %}
+		{% include 'components/footer.html' %}
+	</main>
+</body>
+</html>

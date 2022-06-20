@@ -30,3 +30,7 @@ def register(request: HttpRequest) -> HttpResponse:
         form = RegisterForm()
     # Render registration view with empty or invalid form
     return render(request, 'registration/register.html', {'form': form})
+
+
+def new_post(request: HttpRequest) -> HttpResponse:
+    return render(request, 'create_post.html') #finish this and the view in ../templates/create_post.html
