@@ -1,3 +1,4 @@
+from itertools import chain
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from base.forms import RegisterForm
@@ -23,9 +24,6 @@ def register(request: HttpRequest) -> HttpResponse:
             messages.success(request, 'Account created successfully')
             # Redirect to home
             return redirect('home')
-        else:
-            # Form is invalid, flash errors from form validators
-            messages.error(request, form.errors)
     else:
         # No previous form data, proceed with empty form
         form = RegisterForm()
@@ -44,7 +42,7 @@ def login(request: HttpRequest) -> HttpResponse:
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                messages.info(
+                messages.success(
                     request=request,
                     message=f'Logged in as {username}')
                 return redirect('home')

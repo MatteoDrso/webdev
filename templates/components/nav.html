@@ -15,10 +15,8 @@
 	<ul class="nav-user-actions">
 		{% if user.is_authenticated %}
 		<li><a class="navlink" href="/user/{{ user.get_username }}">{{ user.get_username }}</a></li>
-		<li><a class="navlink" href="/logout">Logout</a></li>
 		{% else %}
 		<li><a class="navlink" href="/login/">Login</a></li>
-		<li><a class="navlink" href="/register/">Register</a></li>
 		{% endif %}
 	</ul>
 </nav>

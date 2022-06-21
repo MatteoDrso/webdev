@@ -14,10 +14,25 @@
 		padding: $item-padding;
 	}
 
-	h1 {
-		margin: 0;
+	div.form-title {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		align-items: flex-end;
 		padding: $item-padding;
 		padding-top: 0;
+		
+		h1 {
+			margin: 0;
+			padding: 0;
+		}
+		span {
+			display: block;
+			a {
+				color: $green;
+				text-decoration: none;
+			}
+		}
 	}
 
 	input {
@@ -42,6 +57,22 @@
 		background-color: $green;
 		color: $base;
 		cursor: pointer;
+	}
+
+	ul.errorlist {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		padding: .3rem;
+		border-radius: $border-radius;
+		font-weight: bold;
+		color: $red;
+		font-weight: bold;
+		&:not(:last-child) {
+			margin-bottom: .5rem;
+		}
 	}
 }
 

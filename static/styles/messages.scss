@@ -1,0 +1,24 @@
+@import "theme.scss";
+
+.flash-messages {
+	list-style: none;
+	margin: 0;
+	margin-bottom: 1rem;
+	padding: 0;
+	
+	li {
+		padding: .3rem;
+		border-radius: $border-radius;
+		font-weight: bold;
+		&:not(:last-child) {
+			margin-bottom: .5rem;
+		}
+	}
+	.success {
+		color: $green;
+	}
+	.error {
+		color: $red;
+	}
+}
+

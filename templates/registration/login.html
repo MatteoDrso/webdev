@@ -6,7 +6,10 @@ Login | Messageboard
 
 {% block content %}
 <form class="form" method="post">
-	<h1>Login</h1>
+	<div class="form-title">
+		<h1>Login</h1>
+		<span><a href="/register">Sign up instead</a></span>
+	</div>
 	{% csrf_token %}
 	{% include 'components/form.html' with form=form %}
 	<input type="submit" value="Login">
