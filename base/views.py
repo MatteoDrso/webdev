@@ -4,10 +4,30 @@ from base.forms import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib import auth
+from .models import Comment
+from datetime import datetime
+from django.contrib.auth import get_user_model
 
 
 def home(request: HttpRequest) -> HttpResponse:
-    return render(request, 'home.html')
+    # Posts to test layout & styling
+    mock_posts = [
+        Comment(
+            publisher=get_user_model().objects.get(id=1),
+            title='Test post',
+            message='Test post body',
+            publication_date=datetime.now()),
+        Comment(
+            publisher=get_user_model().objects.get(id=1),
+            title='Hey, it\'s another Test post',
+            message='talking about nothing in particular',
+            publication_date=datetime(2021, 2, 15)),
+        Comment(
+            publisher=get_user_model().objects.get(id=1),
+            title='Last of the test posts',
+            message='Lorem ipsum dolor sit amet',
+            publication_date=datetime(2020, 11, 10))]
+    return render(request, 'home.html', {'posts': mock_posts})
 
 
 # Attempts to sign up user on POST, renders registration page otherwise

@@ -1,0 +1,9 @@
+{% if posts %}
+<ul class="post-list">
+	{% for post in posts %}
+	<li>
+		{% include 'components/post.html' with post=post %}
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}
