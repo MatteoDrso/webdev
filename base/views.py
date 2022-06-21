@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
-from base.forms import RegisterForm
+from base.forms import RegisterForm, NewCommentForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib import auth
@@ -77,5 +77,26 @@ def login(request: HttpRequest) -> HttpResponse:
 
 
 def new_post(request: HttpRequest) -> HttpResponse:
-    # finish this and the view in ../templates/create_post.html
-    return render(request, 'create_post.html')
+    
+    if request.method == 'POST':
+        form = NewCommentForm(request.POST)
+        user = request.user
+
+        if form.is_valid():
+            if user.is_authenticated():
+                post = NewCommentForm(
+                                      parent = None,
+                                      publisher = user,
+                                      title = form.cleaned_data.get('title'),
+                                      message = form.cleaned_data.get('message'),
+                                      publication_date = form.cleaned_data.get('publication_date'),
+                                     )
+
+            post.save()
+
+            return HttpResponseRedirect('')
+
+    else:
+        form = NewCommentForm()
+
+    return render(request, 'create_post.html', {'form': form})

@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from base.models import Comment
 from django import forms
-
+from django.forms import ModelForm
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=254,
@@ -16,4 +17,14 @@ class RegisterForm(UserCreationForm):
             'email',
             'password1',
             'password2'
+        ]
+
+class NewCommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = [
+            'title',
+            'message',
+            'publication_date',
         ]
