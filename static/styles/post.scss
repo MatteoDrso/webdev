@@ -1,0 +1,26 @@
+@import "theme.scss";
+
+.post-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.post {
+	font-size: 1rem;
+	font-weight: normal;
+	background-color: $base;
+	padding: $wrapper-padding;
+	.post-link, .author-link {
+		color: unset;
+		text-decoration: none;
+	}
+	.author-link {
+		color: $green;
+	}
+	h1 {
+		margin: 0;
+		font-size: 1.4em;
+		font-weight: normal;
+	}
+}
