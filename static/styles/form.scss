@@ -3,7 +3,9 @@
 .form {
 	background-color: $base;
 	border-radius: $border-radius;
-	padding: 1.5rem;
+	padding: $wrapper-padding;
+	margin-right: -$wrapper-padding;
+	margin-left: -$wrapper-padding;
 	display: grid;
 	grid-template-areas: "labels fields" "submit";
 
