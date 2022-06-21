@@ -1,9 +1,17 @@
+{% load static %}
 <nav>
-	<ul>
-		<li><a class="navlink" href="/">Home</a></li>
-		<li><a class="navlink" href="/">Somewhere</a></li>
-		<li><a class="navlink" href="/">Else</a></li>
-	</ul>
+	<div id="nav-main">
+		<a id="home-link" href="/">
+			<div id="branding">
+				<img id="icon" src="{% static 'icon.png' %}">
+				<span><b>ONION</b><b>TALK</b></span>
+			</div>
+		</a>
+		<ul>
+			<li><a class="navlink" href="/">Somewhere</a></li>
+			<li><a class="navlink" href="/">Else</a></li>
+		</ul>
+	</div>
 	<ul class="nav-user-actions">
 		{% if user.is_authenticated %}
 		<li><a class="navlink" href="/user/{{ user.get_username }}">{{ user.get_username }}</a></li>

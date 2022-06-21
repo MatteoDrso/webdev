@@ -2,20 +2,50 @@
 
 nav {
 	margin: 0 auto;
-	width: max-content-width-relative;
-	max-width: $max-content-width;
+	width: $max-content-width;
+	max-width: 100%;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
+
+	user-select: none;
+
+	div#nav-main {
+		display: flex;
+		align-items: center;
+
+		a#home-link {
+			text-decoration: none;
+			color: unset;
+			margin-right: 1rem;
+			
+		}
+		div#branding {
+			display: flex;
+			align-items: center;
+			display: flex;
+
+			img#icon {
+				width: 32px;
+				height: 32px;
+				display: block;
+			}
+			b:last-child {
+				color: $green;
+			}
+		}
+	}
+
 	ul {
 		padding: 0;
 		margin: 1rem 0;
 		list-style: none;
 		display: flex;
-		>:not(:last-child) {
+		& >:not(:last-child) {
 			margin-right: 1rem;
 		}
 	}
-	.navlink {
+	a.navlink {
 			text-decoration: none;
 			color: $text;
 		}
