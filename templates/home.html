@@ -5,7 +5,5 @@ Front Page | Messageboard
 {% endblock %}
 
 {% block content %}
-<h1>
-	{% include 'components/post-list.html' with posts=posts %}
-</h1>
+{% include 'components/post-list.html' with posts=posts %}
 {% endblock %}

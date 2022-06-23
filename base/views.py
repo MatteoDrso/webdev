@@ -1,4 +1,3 @@
-from itertools import chain
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from base.forms import RegisterForm, NewCommentForm
@@ -75,24 +74,23 @@ def login(request: HttpRequest) -> HttpResponse:
 
 
 def new_post(request: HttpRequest) -> HttpResponse:
-    
+    user = request.user  # type: ignore
+    if not user.is_authenticated:
+        return redirect('/login')
+
     if request.method == 'POST':
         form = NewCommentForm(request.POST)
-        user = request.user
-
         if form.is_valid():
-            if user.is_authenticated():
-                post = NewCommentForm(
-                                      parent = None,
-                                      publisher = user,
-                                      title = form.cleaned_data.get('title'),
-                                      message = form.cleaned_data.get('message'),
-                                      publication_date = form.cleaned_data.get('publication_date'),
-                                     )
+            post = NewCommentForm(
+                parent=None,
+                publisher=user,
+                title=form.cleaned_data.get('title'),
+                message=form.cleaned_data.get('message'),
+                publication_date=form.cleaned_data.get('publication_date'))
 
-            post.save()
+            post = post.save()
 
-            return HttpResponseRedirect('')
+            return redirect(f'/post/{post.id}')
 
     else:
         form = NewCommentForm()

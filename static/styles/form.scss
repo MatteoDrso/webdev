@@ -4,12 +4,13 @@
 	background-color: $base;
 	border-radius: $border-radius;
 	padding: $wrapper-padding;
+	margin-right: -$wrapper-padding;
+	margin-left: -$wrapper-padding;
 	display: grid;
-	grid-template-areas: "labels fields" "submit";
 
 	$item-padding: .6rem;
 
-	input, label, h1 {
+	input, label, textarea, h1 {
 		display: block;
 		padding: $item-padding;
 	}
@@ -35,7 +36,8 @@
 		}
 	}
 
-	input {
+	input, textarea {
+		resize: none; 
 		outline: none;
 		border: none;
 		border-radius: $border-radius;
