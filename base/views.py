@@ -81,12 +81,13 @@ def new_post(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = NewCommentForm(request.POST)
         if form.is_valid():
-            post = NewCommentForm(
+            post = Comment(
                 parent=None,
                 publisher=user,
                 title=form.cleaned_data.get('title'),
                 message=form.cleaned_data.get('message'),
-                publication_date=form.cleaned_data.get('publication_date'))
+                publication_date=datetime.now(),
+                )
 
             post = post.save()
 
