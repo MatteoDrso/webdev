@@ -10,24 +10,8 @@ from django.contrib.auth import get_user_model
 
 
 def home(request: HttpRequest) -> HttpResponse:
-    # Posts to test layout & styling
-    mock_posts = [
-        Comment(
-            publisher=get_user_model().objects.get(id=1),
-            title='Test post',
-            message='Test post body',
-            publication_date=datetime.now()),
-        Comment(
-            publisher=get_user_model().objects.get(id=1),
-            title='Hey, it\'s another Test post',
-            message='talking about nothing in particular',
-            publication_date=datetime(2021, 2, 15)),
-        Comment(
-            publisher=get_user_model().objects.get(id=1),
-            title='Last of the test posts',
-            message='Lorem ipsum dolor sit amet',
-            publication_date=datetime(2020, 11, 10))]
-    return render(request, 'home.html', {'posts': mock_posts})
+    posts = Comment.objects.all()  # type: ignore
+    return render(request, 'home.html', {'posts': posts})
 
 
 # Attempts to sign up user on POST, renders registration page otherwise
@@ -81,18 +65,38 @@ def new_post(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = NewCommentForm(request.POST)
         if form.is_valid():
-            post = NewCommentForm(
-                parent=None,
-                publisher=user,
-                title=form.cleaned_data.get('title'),
-                message=form.cleaned_data.get('message'),
-                publication_date=form.cleaned_data.get('publication_date'))
-
-            post = post.save()
-
-            return redirect(f'/post/{post.id}')
+            post = Comment(**form.cleaned_data, publisher=user)
+            post.save()
+            return redirect('view_post', id=post.id)  # type: ignore
 
     else:
         form = NewCommentForm()
 
-    return render(request, 'create_post.html', {'form': form})
+    return render(request, 'create-post.html', {'form': form})
+
+
+def view_post(request: HttpRequest, id) -> HttpResponse:
+    post = Comment.objects.get(id=id)  # type: ignore
+    return render(request, 'view-post.html',
+                  {'post': post, 'user': request.user})  # type: ignore
+
+
+def delete_post(request: HttpRequest, id) -> HttpResponse:
+    user = request.user  # type: ignore
+    post = Comment.objects.get(id=id)  # type: ignore
+    if not user.is_authenticated:
+        messages.error(
+            request,
+            'You need to be logged in to perform this action')
+    elif not post:
+        messages.error(request, 'This post does not exist')
+    elif post.publisher != user:
+        messages.error(request, 'You cannot delete someone elses post')
+    else:
+        post.delete()
+        messages.success(request, 'Post deleted')
+    return redirect('home')
+
+
+def edit_post(request: HttpRequest, id) -> HttpResponse:
+    return HttpResponse('unimplemented')

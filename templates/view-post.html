@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% load humanize %}
+
+{% block title %}
+{{ post.title }} | Messageboard
+{% endblock %}
+
+{% block content %}
+<div class="post content">
+	{% include 'components/post-head.html' with post=post %}
+	<p class="post-body">
+		{{ post.message }}
+	</p>
+	<ul class="post-actions">
+		{% if post.publisher == request.user %}
+		<li><a href="{% url 'delete_post' id=post.id %}">Delete</a></li>
+		<li><a href="{% url 'edit_post' id=post.id %}">Edit</a></li>
+		{% else %}
+		<li><a href="">Report</a></li>
+		{% endif %}
+		<li><a href="">Reply</a></li>
+	</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+@import "theme.scss";
+
+.post-head {
+	font-size: 1rem;
+	font-weight: normal;
+	background-color: $base;
+	.post-subtitle a, .post-link{
+		color: unset;
+		text-decoration: none;
+	}
+	.post-subtitle {
+		font-size: .8em;
+	}
+	a.author-link {
+		color: $green;
+	}
+	h1 {
+		margin: 0;
+		font-size: 1.3em;
+		font-weight: normal;
+	}
+}
+
+.post {
+	font-size: 1rem;
+	p {
+		margin-bottom: 0;
+	}
+	ul.post-actions {
+		font-size: .8em;
+		list-style: none;
+		margin: 0;
+		margin-top: 1rem;
+		padding: 0;
+		display: flex;
+		>:not(:last-child)::after {
+			display: inline;
+			color: $surface0;
+			content: "|";
+			margin: 0 .5rem;
+		}
+		a {
+			text-decoration: none;
+			color: $green;
+		}
+	}
+}

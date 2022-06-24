@@ -16,7 +16,7 @@ class Comment(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         null=True,
-    )
+     )
     title = models.CharField(max_length=200)
     message = models.TextField()
     publication_date = models.DateTimeField(auto_now_add=True)

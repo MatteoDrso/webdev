@@ -1,6 +1,0 @@
-{% load humanize %}
-<div class="post">
-	<a class="post-link" href="/comment/{{post.id}}"><h1>{{ post.title }}</h1></a>
-	<span class="post-sublinks">Posted {{ post.publication_date|naturaltime }} by <a class="author-link"
-		href="/user/{{post.publisher.username}}">{{ post.publisher.username}}</a></span>
-</div>
