@@ -1,8 +1,10 @@
+{% load humanize %}
+
 {% if posts %}
-<ul class="post-list">
+<ul class="post-list content">
 	{% for post in posts %}
 	<li>
-		{% include 'components/post.html' with post=post %}
+		{% include 'components/post-head.html' with post=post %}
 	</li>
 	{% endfor %}
 </ul>

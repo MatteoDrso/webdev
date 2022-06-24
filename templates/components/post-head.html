@@ -1,0 +1,9 @@
+{% load humanize %}
+
+<div class="post-head">
+	<a class="post-link" href="{% url 'view_post' post.id %}"><h1>{{ post.title }}</h1></a>
+	<span class="post-subtitle">
+		{{ post.publication_date|naturaltime }} by 
+		<a class="author-link" href="">{{ post.publisher.username}}</a>
+	</span>
+</div>

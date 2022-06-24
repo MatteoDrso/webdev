@@ -1,11 +1,6 @@
 @import "theme.scss";
 
 .form {
-	background-color: $base;
-	border-radius: $border-radius;
-	padding: $wrapper-padding;
-	margin-right: -$wrapper-padding;
-	margin-left: -$wrapper-padding;
 	display: grid;
 
 	$item-padding: .6rem;
@@ -25,6 +20,7 @@
 		
 		h1 {
 			margin: 0;
+			font-size: 1.4rem;
 			padding: 0;
 		}
 		span {

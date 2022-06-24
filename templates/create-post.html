@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form class="form content" method="post">
+  <div class="form-title"><h1>Submit a post</h1></div>
+  {% csrf_token %}
+  {% include 'components/form.html' with form=form %}
+  <input type="submit" value="Submit">
+</form>
+{% endblock %}

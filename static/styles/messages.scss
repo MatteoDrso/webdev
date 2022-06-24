@@ -1,8 +1,10 @@
 @import "theme.scss";
 
 .flash-messages {
+	width: $max-content-width;
+	max-width: $max-content-width-relative;
 	list-style: none;
-	margin: 0;
+	margin: 0 auto;
 	margin-bottom: 1rem;
 	padding: 0;
 	

@@ -1,6 +1,7 @@
 @import "nav.scss";
 @import "form.scss";
 @import "footer.scss";
+@import "post-list.scss";
 @import "post.scss";
 @import "theme.scss";
 @import "fonts.scss";
@@ -31,5 +32,13 @@ body {
 	width: $max-content-width;
 	max-width: $max-content-width-relative;
 	margin: 0 auto;
+	.content {
+		border-radius: $border-radius;
+		background-color: $base;
+		padding: $wrapper-padding;
+		margin: 0;
+		margin-right: -$wrapper-padding;
+		margin-left: -$wrapper-padding;
+	}
 }
 
