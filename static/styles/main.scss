@@ -6,6 +6,7 @@
 @import "theme.scss";
 @import "fonts.scss";
 @import "messages.scss";
+@import "user-profile.scss";
 
 html, body {
 	margin: 0;
@@ -33,12 +34,17 @@ body {
 	max-width: $max-content-width-relative;
 	margin: 0 auto;
 	.content {
+		overflow: auto;
 		border-radius: $border-radius;
 		background-color: $base;
-		padding: $wrapper-padding;
+		padding: 0 $wrapper-padding;
 		margin: 0;
 		margin-right: -$wrapper-padding;
 		margin-left: -$wrapper-padding;
+		h1 {
+			margin: 0;
+			margin-top: $wrapper-padding;
+		}
 	}
 }
 
