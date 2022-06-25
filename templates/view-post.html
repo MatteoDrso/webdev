@@ -3,14 +3,14 @@
 {% load humanize %}
 
 {% block title %}
-{{ post.title }} | Messageboard
+{{ post.title }}
 {% endblock %}
 
 {% block content %}
 <div class="post content">
 	{% include 'components/post-head.html' with post=post %}
 	<p class="post-body">
-		{{ post.message }}
+		{{ post.message|linebreaks }}
 	</p>
 	<ul class="post-actions">
 		{% if post.publisher == request.user %}
