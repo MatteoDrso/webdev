@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+{% load humanize %}
+
+{% block title %}
+{{ user.username }}
+{% endblock %}
+
+{% block content %}
+<div class="user-profile content">
+	<h1>{{ user.username }}</h1>
+	<div class="subtitle">Joined {{ user.date_joined|naturaltime }}</div>
+	{% include 'components/post-list.html' with posts=user.comments.all hideauthor=True %}
+</div>
+{% endblock %}

@@ -5,7 +5,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib import auth
 from .models import Comment
-from datetime import datetime
 from django.contrib.auth import get_user_model
 
 
@@ -77,8 +76,7 @@ def new_post(request: HttpRequest) -> HttpResponse:
 
 def view_post(request: HttpRequest, id) -> HttpResponse:
     post = Comment.objects.get(id=id)  # type: ignore
-    return render(request, 'view-post.html',
-                  {'post': post, 'user': request.user})  # type: ignore
+    return render(request, 'view-post.html', {'post': post})  # type: ignore
 
 
 def delete_post(request: HttpRequest, id) -> HttpResponse:
@@ -100,3 +98,11 @@ def delete_post(request: HttpRequest, id) -> HttpResponse:
 
 def edit_post(request: HttpRequest, id) -> HttpResponse:
     return HttpResponse('unimplemented')
+
+
+def user_profile(request: HttpRequest, id) -> HttpResponse:
+    user = get_user_model().objects.get(id=id)
+    if not user:
+        messages.error(request, 'This user does not exist')
+        return redirect('home')
+    return render(request, 'user-profile.html', {'user': user})
