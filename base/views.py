@@ -74,6 +74,28 @@ def create_post(request: HttpRequest) -> HttpResponse:
     return render(request, 'create-post.html', {'form': form})
 
 
+def reply_post(request: HttpRequest, id) -> HttpResponse:
+    parent = Comment.objects.get(id=id) # type: ignore
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+        if not parent:
+            messages.error(request, 'The post you want to reply to does not exist')
+        else:
+            if request.method == 'POST':
+                form = NewCommentForm(request.POST)
+                if form.is_valid():
+                    post = Comment(**form.cleaned_data, parent=parent, publisher=user)
+                    post.save()
+                    return redirect('view_post', id=post.id)  # type: ignore
+
+            else:
+                form = NewCommentForm()
+
+    return render(request, )
+
+
+
 def view_post(request: HttpRequest, id) -> HttpResponse:
     post = Comment.objects.get(id=id)  # type: ignore
     return render(request, 'view-post.html', {'post': post})  # type: ignore
