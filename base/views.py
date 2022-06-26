@@ -56,7 +56,7 @@ def login(request: HttpRequest) -> HttpResponse:
                   {'form': form}, status=status)
 
 
-def new_post(request: HttpRequest) -> HttpResponse:
+def create_post(request: HttpRequest) -> HttpResponse:
     user = request.user  # type: ignore
     if not user.is_authenticated:
         return redirect('/login')
