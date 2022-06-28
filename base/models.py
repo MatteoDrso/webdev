@@ -7,11 +7,16 @@ from django.contrib.auth import settings
 class Comment(models.Model):
     parent = models.ForeignKey(
         'self',
-        on_delete=models.CASCADE,  # does that make sense?
+        on_delete=models.CASCADE,
         null=True,
+        related_name='+',
     )
-    # not sure if this works properly. source:
-    # https://docs.djangoproject.com/en/1.10/topics/auth/customizing/#referencing-the-user-model
+    original_comment = models.ForeignKey(
+    	'self',
+    	on_delete=models.CASCADE,
+    	null=True,
+    	related_name='+',
+    )
     publisher = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
