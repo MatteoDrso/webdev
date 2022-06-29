@@ -11,11 +11,11 @@ class Comment(models.Model):
         null=True,
         related_name='+',
     )
-    original_comment = models.ForeignKey(
+    original_post = models.ForeignKey(
     	'self',
     	on_delete=models.CASCADE,
     	null=True,
-    	related_name='+',
+    	related_name='replies',
     )
     publisher = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -28,4 +28,7 @@ class Comment(models.Model):
     publication_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+    	if self.title == None:
+    		return "No title given"
+    	else:
+        	return self.title
