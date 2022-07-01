@@ -19,7 +19,24 @@
 		{% else %}
 		<li><a href="">Report</a></li>
 		{% endif %}
-		<li><a href="">Reply</a></li>
+		<li><a href="{% url 'reply_post' id=post.id%}">Reply</a></li>
 	</ul>
+</div>
+
+<div class="post content">
+	{% for reply in replies %}
+	<p class="post-body">
+		{{ reply.message|linebreaks }}
+	</p>
+	<ul class="post-actions">
+		{% if reply.publisher == request.user %}
+		<li><a href="{% url 'delete_post' id=reply.id %}">Delete</a></li>
+		<li><a href="{% url 'edit_post' id=reply.id %}">Edit</a></li>
+		{% else %}
+		<li><a href="">Report</a></li>
+		{% endif %}
+		<li><a href="{% url 'reply_post' id=reply.id%}">Reply</a></li>
+	</ul>
+	{% endfor %}
 </div>
 {% endblock %}

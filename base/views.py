@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
-from base.forms import RegisterForm, NewCommentForm
+from base.forms import RegisterForm, PostForm, ReplyForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib import auth
@@ -62,21 +62,41 @@ def create_post(request: HttpRequest) -> HttpResponse:
         return redirect('/login')
 
     if request.method == 'POST':
-        form = NewCommentForm(request.POST)
+        form = PostForm(request.POST)
         if form.is_valid():
-            post = Comment(**form.cleaned_data, publisher=user)
+            post = Comment(**form.cleaned_data, publisher=user, parent=None, original_post=None)
             post.save()
             return redirect('view_post', id=post.id)  # type: ignore
 
     else:
-        form = NewCommentForm()
+        form = PostForm()
 
     return render(request, 'create-post.html', {'form': form})
 
+def reply_post(request: HttpRequest, id) -> HttpResponse:
+    user = request.user # type: ignore
+    parent = Comment.objects.get(id=id) # type: ignore
+    (original_post, replies) = get_original_post_and_replies(id)
+
+    if not user.is_authenticated:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            post = Comment(**form.cleaned_data, publisher=user, parent=parent, original_post=original_post, title=None)
+            post.save()
+            return redirect('view_post', id=original_post.id)
+    else:
+        form = ReplyForm()
+
+    return render(request, 'view-post.html', {'form':form, 'replies':replies, 'post':original_post, 'parent':parent})
+
+
 
 def view_post(request: HttpRequest, id) -> HttpResponse:
-    post = Comment.objects.get(id=id)  # type: ignore
-    return render(request, 'view-post.html', {'post': post})  # type: ignore
+    (original_post, replies) = get_original_post_and_replies(id)
+    return render(request, 'view-post.html', {'post': original_post, 'replies':replies})  # type: ignore
 
 
 def delete_post(request: HttpRequest, id) -> HttpResponse:
@@ -106,3 +126,20 @@ def user_profile(request: HttpRequest, id) -> HttpResponse:
         messages.error(request, 'This user does not exist')
         return redirect('home')
     return render(request, 'user-profile.html', {'user': user})
+
+
+def get_original_post_and_replies(post_id):
+    post = Comment.objects.get(id=post_id) # type: ignore
+    original_post = None
+    if post.parent == None:
+        original_post = post
+    elif post.parent.original_post == None:
+        original_post = post.parent
+    else:
+        original_post = parent.original_post
+    replies = original_post.replies.all()
+
+    return (original_post, replies)
+
+
+
