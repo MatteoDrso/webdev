@@ -20,7 +20,7 @@ class RegisterForm(UserCreationForm):
         ]
 
 
-class NewCommentForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
 
     class Meta:
         model = Comment
@@ -28,3 +28,12 @@ class NewCommentForm(forms.ModelForm):
             'title',
             'message',
         ]
+
+class ReplyForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = [
+            'message',
+        ]
+
