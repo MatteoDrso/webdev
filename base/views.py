@@ -136,7 +136,7 @@ def get_original_post_and_replies(post_id):
     elif post.parent.original_post == None:
         original_post = post.parent
     else:
-        original_post = parent.original_post
+        original_post = post.parent.original_post
     replies = original_post.replies.all()
 
     return (original_post, replies)
