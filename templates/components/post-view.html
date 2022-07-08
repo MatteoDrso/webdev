@@ -1,0 +1,21 @@
+	<p class="post-body">
+		{{ post.message|linebreaks }}
+	</p>
+	<ul class="post-actions">
+		{% if post.publisher == request.user %}
+		<li><a href="{% url 'delete_post' id=post.id %}">Delete</a></li>
+		<li><a href="{% url 'edit_post' id=post.id %}">Edit</a></li>
+		{% endif %}
+		{% if post.id == parent.id %}
+		<form class="form content" method="post">
+		{% csrf_token %}
+		{% include 'components/form.html' with form=form %}
+		<li><input type="submit" value="Submit"></li>
+		</form>
+		{% else %}
+		{% if post.publisher != request.user %}
+		<li><a href="">Report</a></li>
+		{% endif %}
+		<li><a href="{% url 'reply_post' id=post.id%}">Reply</a></li>
+		{% endif %}
+	</ul>
