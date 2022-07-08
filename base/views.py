@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 
 
 def home(request: HttpRequest) -> HttpResponse:
-    posts = Comment.objects.all()  # type: ignore
+    posts = Comment.objects.all().filter(parent__isnull=True)  # type: ignore
     return render(request, 'home.html', {'posts': posts})
 
 
