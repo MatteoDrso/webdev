@@ -22,8 +22,11 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         null=True,
         related_name="comments",
-     )
-    title = models.CharField(max_length=200)
+    )
+    title = models.CharField(
+        max_length=200,
+        null=True,
+    )
     message = models.TextField()
     publication_date = models.DateTimeField(auto_now_add=True)
 
