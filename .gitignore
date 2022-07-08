@@ -1,3 +1,4 @@
 db.sqlite3
 static/COMPILED/
 static/.sass-cache
+*.pyc
