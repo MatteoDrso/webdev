@@ -28,6 +28,14 @@ class Comment(models.Model):
         null=True,
     )
     message = models.TextField()
+    upvoters = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="upvoters",
+    )
+    downvoters = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="downvoters",
+    )
     publication_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
