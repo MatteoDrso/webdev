@@ -30,11 +30,11 @@ class Comment(models.Model):
     message = models.TextField()
     upvoters = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        related_name="upvoters",
+        related_name="upvotes",
     )
     downvoters = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        related_name="downvoters",
+        related_name="downvotes",
     )
     publication_date = models.DateTimeField(auto_now_add=True)
 
