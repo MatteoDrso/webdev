@@ -38,8 +38,13 @@ class Comment(models.Model):
     )
     publication_date = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
     	if self.title == None:
     		return "No title given"
     	else:
         	return self.title
+
+
+    def get_vote_count(self):
+        return self.upvoters.count() - self.downvoters.count()
