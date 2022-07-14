@@ -10,6 +10,8 @@ urlpatterns = [
     path('post/reply/<int:id>', views.reply_post, name='reply_post'),
     path('post/delete/<int:id>', views.delete_post, name='delete_post'),
     path('post/edit/<int:id>', views.edit_post, name='edit_post'),
+    path('post/upvote/<int:id>', views.upvote_post, name='upvote_post'),
+    path('post/downvote/<int:id>', views.downvote_post, name='downvote_post'),
     path('user/view/<int:id>', views.user_profile, name='user_profile'),
     path('', include('django.contrib.auth.urls')),
 ]

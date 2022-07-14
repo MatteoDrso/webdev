@@ -16,6 +16,9 @@
 		{% if post.publisher != request.user %}
 		<li><a href="">Report</a></li>
 		{% endif %}
-		<li><a href="{% url 'reply_post' id=post.id%}">Reply</a></li>
+		<li><a href="{% url 'reply_post' id=post.id %}">Reply</a></li>
 		{% endif %}
+		<li>{{ post.get_vote_count }}</li>
+		<li><a href="{% url 'upvote_post' id=post.id %}">up</a></li>
+		<li><a href="{% url 'downvote_post' id=post.id %}">down</a></li>
 	</ul>

@@ -93,10 +93,35 @@ def reply_post(request: HttpRequest, id) -> HttpResponse:
     return render(request, 'view-post.html', {'form':form, 'replies':replies, 'post':original_post, 'parent':parent})
 
 
-
 def view_post(request: HttpRequest, id) -> HttpResponse:
     (original_post, replies) = get_original_post_and_replies(id)
     return render(request, 'view-post.html', {'post': original_post, 'replies':replies})  # type: ignore
+
+
+def upvote_post(request: HttpRequest, id) -> HttpResponse:
+    user = request.user # type: ignore
+    parent = Comment.objects.get(id=id) # type: ignore
+    referer_view = request.META['HTTP_REFERER']
+    if not parent.upvoters.all().contains(user):
+        if parent.downvoters.all().contains(user):
+            parent.downvoters.remove(user)
+        parent.upvoters.add(user)
+        parent.save()
+
+    return redirect(referer_view, id=parent.id)
+
+
+def downvote_post(request: HttpRequest, id) -> HttpResponse:
+    user = request.user # type: ignore
+    parent = Comment.objects.get(id=id) # type: ignore
+    referer_view = request.META['HTTP_REFERER']
+    if not parent.downvoters.all().contains(user):
+        if parent.upvoters.all().contains(user):
+            parent.upvoters.remove(user)
+        parent.downvoters.add(user)
+        parent.save()
+    
+    return redirect(referer_view, id=parent.id)
 
 
 def delete_post(request: HttpRequest, id) -> HttpResponse:
