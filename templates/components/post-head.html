@@ -1,7 +1,7 @@
 {% load humanize %}
 
 <div class="post-head">
-	<a class="post-link" href="{% url 'view_post' post.id %}"><h1>{{ post.title }}</h1></a>
+	<a class="post-link" href="{% url 'view_post' post.id %}"><h1>{{ post }}</h1></a>
 	<span class="post-subtitle">
 		{{ post.publication_date|naturaltime }}
 		{% if not hideauthor %}

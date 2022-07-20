@@ -41,7 +41,7 @@ class Comment(models.Model):
 
     def __str__(self):
     	if self.title == None:
-    		return "No title given"
+    		return "reply: " + self.original_post.title
     	else:
         	return self.title
 
