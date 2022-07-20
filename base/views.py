@@ -102,11 +102,13 @@ def upvote_post(request: HttpRequest, id) -> HttpResponse:
     user = request.user # type: ignore
     parent = Comment.objects.get(id=id) # type: ignore
     referer_view = request.META['HTTP_REFERER']
-    if not parent.upvoters.all().contains(user):
-        if parent.downvoters.all().contains(user):
-            parent.downvoters.remove(user)
+    if parent.upvoters.all().contains(user):
+        parent.upvoters.remove(user)
+    else:
         parent.upvoters.add(user)
-        parent.save()
+    if parent.downvoters.all().contains(user):
+        parent.downvoters.remove(user)
+    parent.save()
 
     return redirect(referer_view, id=parent.id)
 
@@ -115,11 +117,13 @@ def downvote_post(request: HttpRequest, id) -> HttpResponse:
     user = request.user # type: ignore
     parent = Comment.objects.get(id=id) # type: ignore
     referer_view = request.META['HTTP_REFERER']
-    if not parent.downvoters.all().contains(user):
-        if parent.upvoters.all().contains(user):
-            parent.upvoters.remove(user)
+    if parent.downvoters.all().contains(user):
+        parent.downvoters.remove(user)
+    else:
         parent.downvoters.add(user)
-        parent.save()
+    if parent.upvoters.all().contains(user):
+        parent.upvoters.remove(user)
+    parent.save()
     
     return redirect(referer_view, id=parent.id)
 
